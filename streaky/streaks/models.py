@@ -11,9 +11,7 @@ class Streak(models.Model):
     count = models.IntegerField(default=0)
     date_added = models.DateTimeField(default=timezone.now)
     date_ended = models.DateTimeField(blank=True, null=True)
-
-    def has_ended(self) -> bool:
-        return bool(self.date_ended)
+    has_ended = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return "%s - %s" % (self.user.username, self.title)
