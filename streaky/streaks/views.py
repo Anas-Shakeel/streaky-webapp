@@ -1,6 +1,15 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
+from .models import Streak
 
 
 # Create your views here.
 def home(request):
-    return HttpResponse("Welcome to streaks app")
+    if not request.user.is_authenticated:
+        return redirect("users:login")
+
+    # Get Latest Streak
+    streak = Streak.objects.filter(has_ended=False)
+    if streak:
+        streak = streak[0]
+
+    return render(request, "streaks/home.html", {"streak": streak})
