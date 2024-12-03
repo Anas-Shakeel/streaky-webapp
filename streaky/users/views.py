@@ -87,3 +87,10 @@ def signup_user(request):
 
     # If user is not logged and not posted, render the page normally!
     return render(request, "users/signup.html")
+
+
+def logout_user(request):
+    if request.user.is_authenticated:
+        logout(request)
+
+    return redirect("users:login")
