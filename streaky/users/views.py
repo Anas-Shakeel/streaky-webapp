@@ -43,15 +43,13 @@ def login_user(request):
 
 def signup_user(request):
     if request.method == "POST":
-        # Get the username, email, password and confirm password
+        # Get the fields
         username = request.POST["username"]
-        email = request.POST["email"]
         password = request.POST["password"]
         confirm_password = request.POST["confirm_password"]
 
         # Validate the fields
         message = ""
-        # Validations
         if not username:
             message = "Invalid username! try again."
         elif User.objects.filter(username=username).first():
@@ -60,10 +58,6 @@ def signup_user(request):
             message = "Username must contain atleast 4 characters!"
         elif len(username) > 30:
             message = "Username can only contain 30 characters at most!"
-        elif not email:
-            message = "Invalid email! try again."
-        elif User.objects.filter(email=email).first():
-            message = "Email already exists! try another."
         elif password != confirm_password:
             message = "Password must be same as confirm password"
         elif len(password) < 4:
@@ -74,19 +68,17 @@ def signup_user(request):
             # Finally check for illegal characters
             for char in ILLEGAL_CHARS:
                 if char in username:
-                    message = f"Illegal character '{
-                        char}' not allowed. Avoid these ({ILLEGAL_CHARS})"
+                    message = f"Illegal character {char} in username. Avoid these {ILLEGAL_CHARS} characters."
                     return render(request, "users/signup.html", {"message": message})
 
-            # Everything is ok at this point, now signup
-            user = User(
-                username=username, email=email, password=make_password(password)
-            )
+            # Create the User
+            user = User(username=username, password=make_password(password))
             user.save()
-            login(request, user)
-            return redirect("index")
 
-        # if anything above, goes down, this will execute...
+            # Login
+            login(request, user)
+            return redirect("streaks:home")
+
         return render(request, "users/signup.html", {"message": message})
 
     # Logged in?
