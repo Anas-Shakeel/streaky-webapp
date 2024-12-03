@@ -6,8 +6,6 @@
 <!-- Body Content -->
 {% block content %}
 
-<h1>Signup</h1>
-
 <!-- Signup Form -->
 <div class="container-primary signup-box">
     <!-- Messagebox -->
@@ -22,7 +20,7 @@
         <h1 class="login-heading">Signup</h1>
 
         <!-- Form Fields -->
-        <form action="{% url 'signup' %}" method="post">
+        <form action="{% url 'users:signup' %}" method="post">
             {% csrf_token %}
             <div class="login-input-field-container">
                 <input

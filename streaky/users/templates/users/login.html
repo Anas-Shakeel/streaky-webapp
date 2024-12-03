@@ -6,8 +6,6 @@
 <!-- Body Content -->
 {% block content %}
 
-<h1>Login</h1>
-
 <!-- Login Form -->
 <div class="container-primary login-box">
     <!-- Messagebox -->
@@ -22,7 +20,7 @@
         <h1 class="login-heading">Login</h1>
 
         <!-- Form Fields -->
-        <form action="{% url 'login' %}" method="post">
+        <form action="{% url 'users:login' %}" method="post">
             {% csrf_token %}
             <div class="login-input-field-container">
                 <input
@@ -41,7 +39,7 @@
                     required
                     autocomplete="off" />
                 <input type="submit" value="Login" class="field-button btn-primary m-top-10" />
-                <a href="{% url 'signup' %}" class="link login-link-fp">Don't have an account?</a>
+                <a href="{% url 'users:signup' %}" class="link login-link-fp">Don't have an account?</a>
             </div>
         </form>
     </div>
