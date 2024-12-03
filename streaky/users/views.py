@@ -1,3 +1,45 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.hashers import make_password, check_password
+
+
+# These characters should not be in the usernames
+ILLEGAL_CHARS = """ \\/:;*?"'`|%/,"""
+
 
 # Create your views here.
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        # Illegal characters in username?
+        for char in ILLEGAL_CHARS:
+            if char in username:
+                message = f"Illegal character {char} in username. Avoid these {ILLEGAL_CHARS} characters."
+                return render(request, "users/login.html", {"message": message})
+
+        # Authenticate
+        user = authenticate(request, username=username, password=password)
+
+        # Authenticated?
+        if user:
+            login(request, user)
+            return redirect("streaks:home")
+        else:
+            return render(
+                request,
+                "users/login.html",
+                {"message": "Invalid Credentials, try again!"},
+            )
+
+    # Already logged in?
+    if request.user.is_authenticated:
+        return redirect("streaks:home")
+
+    return render(request, "users/login.html")
+
+
+def signup(request):
+    return render(request, "users/signup.html")
