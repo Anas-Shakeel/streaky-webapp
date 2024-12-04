@@ -11,5 +11,10 @@ def home(request):
     streak = Streak.objects.filter(has_ended=False)
     if streak:
         streak = streak[0]
+        fillcolor = "orange"
 
-    return render(request, "streaks/home.html", {"streak": streak})
+    return render(
+        request,
+        "streaks/home.html",
+        {"streak": streak, "fillcolor": fillcolor},
+    )
