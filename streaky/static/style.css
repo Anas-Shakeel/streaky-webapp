@@ -269,7 +269,6 @@ body {
 }
 .streak-btn:hover {
     background-color: #15213f;
-    box-shadow: 0 0 15px orange;
 }
 .streak-btn:active {
     background-color: #202e55;
