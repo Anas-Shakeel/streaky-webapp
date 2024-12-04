@@ -1,0 +1,18 @@
+<nav class="navbar">
+    <p>
+        <a href='{% url "streaks:home" %}' class="nav-heading">STREAKY</a>
+    </p>
+
+    <!-- Navlinks? -->
+    {% if user.is_authenticated %}
+    <div class="nav-link-container">
+        <p>
+            <a href='{% url "streaks:home" %}' class="nav-link">STREAKS</a>
+        </p>
+
+        <p>
+            <a href='{% url "streaks:home" %}' class="nav-link">SETTINGS</a>
+        </p>
+    </div>
+    {% endif %}
+</nav>
