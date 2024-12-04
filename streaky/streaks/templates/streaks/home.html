@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% load static %}
 
 <!--Title-->
 {% block title %} Home {% endblock %}
@@ -6,10 +6,13 @@
 <!--Body Content-->
 {% block content %}
 
-<h1>Welcome, {{ user.username }}</h1>
-
-<h2>{{ streak.title }}</h2>
-<h3>Streak: {{ streak.count }}</h3>
-<p>{{ streak.description }}</p>
+<main class="home-main-container">
+    <div class="streak-btn-container">
+        <button class="streak-btn">
+            <img src="{% static 'fire.png' %}" alt="fire-img" class="streak-btn-img" />
+        </button>
+    </div>
+    <p class="streak-count">87 Days</p>
+</main>
 
 {% endblock content %}
