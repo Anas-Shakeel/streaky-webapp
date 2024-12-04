@@ -281,10 +281,10 @@ body {
     cursor: default;
 }
 
-.streak-btn-img {
+.streak-btn-svg {
     background-size: contain;
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
 }
 
 .streak-count {
