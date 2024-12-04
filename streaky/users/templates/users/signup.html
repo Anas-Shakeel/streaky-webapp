@@ -7,26 +7,27 @@
 {% block content %}
 
 <!-- Signup Form -->
-<div class="container-primary signup-box">
-    <!-- Messagebox -->
-    <div class="msg-container">
-        {% if message %}
-        <p class="msg msg-error">{{message}}</p>
-        {% endif %}
-    </div>
+<div class="auth-box signup-box">
     <!-- Signup form -->
-    <div class="login-box-container">
+    <div class="auth-box-container">
         <!-- Form Heading -->
-        <h1 class="login-heading">Signup</h1>
+        <h1 class="auth-heading">Signup</h1>
+
+        <!-- Messagebox -->
+        <div class="msg-container">
+            {% if message %}
+            <p class="msg msg-error">{{message}}</p>
+            {% endif %}
+        </div>
 
         <!-- Form Fields -->
         <form action="{% url 'users:signup' %}" method="post">
             {% csrf_token %}
-            <div class="login-input-field-container">
+            <div class="auth-input-field-container">
                 <input
                     type="text"
                     name="username"
-                    class="login-field-control"
+                    class="auth-field-control"
                     placeholder="Username..."
                     required
                     autofocus
@@ -34,18 +35,25 @@
                 <input
                     type="password"
                     name="password"
-                    class="login-field-control"
+                    class="auth-field-control"
                     placeholder="Password..."
                     required
                     autocomplete="off" />
                 <input
                     type="password"
                     name="confirm_password"
-                    class="login-field-control"
+                    class="auth-field-control"
                     placeholder="Confirm password..."
                     required
                     autocomplete="off" />
-                <input type="submit" value="Signup" class="field-button btn-primary m-top-10" />
+                <input type="submit" value="Signup" class="field-button" />
+
+                <div class="or-container">
+                    <hr />
+                    <p>OR</p>
+                    <hr />
+                </div>
+                <a href="{% url 'users:login' %}" class="auth-link">Already a user? Login instead</a>
             </div>
         </form>
     </div>
