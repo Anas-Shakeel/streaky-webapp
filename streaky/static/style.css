@@ -85,15 +85,18 @@ body {
     flex-direction: column;
 }
 
-/* primary-container */
+/* Auth Styles */
 .auth-box {
     width: 23rem;
     height: 26rem;
-    max-height: 26rem;
     justify-content: normal;
     background-color: var(--primary-color-dark);
     border-radius: var(--border-radius);
     box-sizing: border-box;
+}
+
+.signup-box {
+    height: 28rem;
 }
 
 .auth-box-container {
@@ -151,12 +154,6 @@ body {
 }
 .auth-link:hover {
     color: var(--accent-color);
-}
-
-.signup-box {
-    width: 450px;
-    height: 478px;
-    justify-content: normal;
 }
 
 .field-button {
