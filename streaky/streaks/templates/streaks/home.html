@@ -8,10 +8,12 @@
 
 <main class="home-main-container">
     <div class="streak-btn-container">
+        <div class="streak-btn-border-animation" style="border-color: {{ streak_color }};"></div>
+        <div class="streak-btn-border" style="background-color: {{ streak_color }};"></div>
         <button class="streak-btn">
             <svg
                 class="streak-btn-svg"
-                style="fill: {{fillcolor}};"
+                style="fill: {{streak_color}};"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 50 50"
                 width="500"
@@ -21,7 +23,7 @@
             </svg>
         </button>
     </div>
-    <p class="streak-count">87 Days</p>
+    <p class="streak-count" style="color: {{streak_color}};">{{streak.count}} Days</p>
 </main>
 
 {% endblock content %}
