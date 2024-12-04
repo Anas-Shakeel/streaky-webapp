@@ -7,39 +7,45 @@
 {% block content %}
 
 <!-- Login Form -->
-<div class="container-primary login-box">
-    <!-- Messagebox -->
-    <div class="msg-container">
-        {% if message %}
-        <p class="msg msg-error">{{message}}</p>
-        {% endif %}
-    </div>
+<div class="auth-box">
     <!-- Login form -->
-    <div class="login-box-container">
+    <div class="auth-box-container">
         <!-- Form Heading -->
-        <h1 class="login-heading">Login</h1>
+        <h1 class="auth-heading">Login</h1>
+
+        <!-- Messagebox -->
+        <div class="msg-container">
+            {% if message %}
+            <p class="msg msg-error">{{message}}</p>
+            {% endif %}
+        </div>
 
         <!-- Form Fields -->
         <form action="{% url 'users:login' %}" method="post">
             {% csrf_token %}
-            <div class="login-input-field-container">
+            <div class="auth-input-field-container">
                 <input
                     type="text"
                     name="username"
-                    class="login-field-control"
-                    placeholder="Username..."
+                    class="auth-field-control"
+                    placeholder="Username"
                     required
                     autofocus
                     autocomplete="off" />
                 <input
                     type="password"
                     name="password"
-                    class="login-field-control"
-                    placeholder="Password..."
+                    class="auth-field-control"
+                    placeholder="Password"
                     required
                     autocomplete="off" />
-                <input type="submit" value="Login" class="field-button btn-primary m-top-10" />
-                <a href="{% url 'users:signup' %}" class="link login-link-fp">Don't have an account?</a>
+                <input type="submit" value="Login" class="field-button" />
+                <div class="or-container">
+                    <hr />
+                    <p>OR</p>
+                    <hr />
+                </div>
+                <a href="{% url 'users:signup' %}" class="auth-link">Create an account</a>
             </div>
         </form>
     </div>
