@@ -4,8 +4,8 @@
     </p>
 
     <!-- Navlinks? -->
-    {% if user.is_authenticated %}
     <div class="nav-link-container">
+        {% if user.is_authenticated %}
         <p>
             <a href='{% url "streaks:edit" %}' class="nav-link">EDIT STREAK</a>
         </p>
@@ -17,6 +17,14 @@
         <p>
             <a href='{% url "users:logout" %}' class="nav-link">LOGOUT</a>
         </p>
+        {% else %}
+        <p>
+            <a href='{% url "users:login" %}' class="nav-link">LOGIN</a>
+        </p>
+
+        <p>
+            <a href='{% url "users:signup" %}' class="nav-link">SIGNUP</a>
+        </p>
+        {% endif %}
     </div>
-    {% endif %}
 </nav>
