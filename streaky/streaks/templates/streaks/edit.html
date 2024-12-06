@@ -7,10 +7,36 @@
 {% block content %}
 
 <div class="edit-main-container">
-    <h1>Edit the Streak here...</h1>
-    <p> {{streak.title}} </p>
-    <p> {{streak.description}} </p>
-    <p> {{streak.count}} </p>
+    <div class="edit-container">
+        <h1 class="edit-heading">Edit Streak</h1>
+
+        <!-- Messagebox -->
+        <div class="msg-container">
+            {% if message %}
+            <p class="msg msg-error">{{message}}</p>
+            {% endif %}
+        </div>
+
+        <!-- Form Fields -->
+        <form action="{% url 'streaks:edit' %}" method="post" class="edit-input-container">
+            {% csrf_token %}
+                <input
+                    type="text"
+                    name="title"
+                    class="edit-input"
+                    placeholder="Title of streak..."
+                    value="{{streak.title}}"
+                    maxlength="99"
+                    autofocus />
+                <textarea
+                    name="description"
+                    id="description"
+                    class="edit-input text-area custom-scrollbar"
+                    rows="6"
+                    placeholder="Description of streak...">{{ streak.description }}</textarea>
+                <input type="submit" value="Save" class="field-button" />
+        </form>
+    </div>
 </div>
 
 {% endblock content %}
