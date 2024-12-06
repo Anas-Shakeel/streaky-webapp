@@ -7,6 +7,10 @@
     <div class="nav-link-container">
         {% if user.is_authenticated %}
         <p>
+            <a href='{% url "streaks:home" %}' class="nav-link">HOME</a>
+        </p>
+
+        <p>
             <a href='{% url "streaks:edit" %}' class="nav-link">EDIT STREAK</a>
         </p>
 
