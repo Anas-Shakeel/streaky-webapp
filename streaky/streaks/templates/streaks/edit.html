@@ -1,0 +1,16 @@
+{% extends "layout.html" %} {% load static %}
+
+<!--Title-->
+{% block title %} Edit Streak {% endblock %}
+
+<!--Body Content-->
+{% block content %}
+
+<div class="edit-main-container">
+    <h1>Edit the Streak here...</h1>
+    <p> {{streak.title}} </p>
+    <p> {{streak.description}} </p>
+    <p> {{streak.count}} </p>
+</div>
+
+{% endblock content %}
