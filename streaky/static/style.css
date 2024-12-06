@@ -303,8 +303,8 @@ body {
 
 .streak-btn-border-animation {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 98%;
+    height: 98%;
     border: 2px solid var(--accent-color-light);
     z-index: -1;
     border-radius: 50%;
@@ -332,4 +332,8 @@ body {
 .streak-count {
     font-size: 2em;
     font-weight: bold;
+}
+
+.no-animation {
+    animation: none;
 }
