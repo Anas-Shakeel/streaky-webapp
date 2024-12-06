@@ -39,6 +39,14 @@ def edit_streak(request):
 
     # Submitted Edit?
     if request.method == "POST":
+        streak_title = request.POST.get("title", "")
+        streak_description = request.POST.get("description", "")
+
+        # Update streak
+        streak.title = streak_title
+        streak.description = streak_description
+        streak.save()
+
         return redirect("streaks:home")
 
     return render(
