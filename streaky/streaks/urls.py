@@ -5,4 +5,5 @@ from . import views
 app_name = "streaks"
 urlpatterns = [
     path("", views.home, name="home"),
+    path("edit/", views.edit_streak, name="edit"),
 ]
