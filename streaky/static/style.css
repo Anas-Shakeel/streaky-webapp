@@ -265,6 +265,7 @@ body {
     border: none;
     outline: none;
     cursor: pointer;
+    overflow: hidden;
 }
 .streak-btn:hover {
     background-color: var(--primary-color-dark);
@@ -325,12 +326,14 @@ body {
 
 .streak-btn-svg {
     background-size: contain;
-    width: 50%;
-    height: 50%;
+    width: 45%;
+    height: 45%;
+    padding: 0.5rem;
 }
 
 .streak-count {
-    font-size: 2em;
+    font-size: 1.4em;
+    width: 100%;
     font-weight: bold;
 }
 
