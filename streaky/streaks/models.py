@@ -12,6 +12,7 @@ class Streak(models.Model):
     date_added = models.DateTimeField(default=timezone.now)
     date_ended = models.DateTimeField(blank=True, null=True)
     has_ended = models.BooleanField(default=False)
+    already_increased = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return "%s - %s" % (self.user.username, self.title)
