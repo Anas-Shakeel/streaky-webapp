@@ -12,8 +12,27 @@ def home(request):
     # Get Streak
     streak = get_object_or_404(Streak, user=request.user)
 
+    date_today = timezone.localtime(timezone.now()).date()
+    if streak.date_updated:
+        # How many days since Last Increase
+        days_since_last_update = (date_today - streak.date_updated).days
+
+        if days_since_last_update == 1:
+            # Ready to increase
+            streak.already_increased = False
+            streak.save()
+
+        elif days_since_last_update > 1:
+            # Break Streak
+            streak.break_streak()
+        else:
+            # Cannot increase today
+            pass
+
     # Streak color
-    if streak.count <= 50:
+    if streak.already_increased:
+        streak_color = "grey"
+    elif streak.count <= 50:
         streak_color = "#40AFFF"
     elif streak.count <= 100:
         streak_color = "#40FF90"
