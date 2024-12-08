@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.utils import timezone
 from .models import Streak
 
@@ -9,10 +9,20 @@ def home(request):
     if not request.user.is_authenticated:
         return redirect("users:login")
 
-    # Get Streak
-    streak = get_object_or_404(Streak, user=request.user)
-
     date_today = timezone.localtime(timezone.now()).date()
+
+    # Get Streak, or Create one
+    try:
+        streak = Streak.objects.get(user=request.user)
+    except Streak.DoesNotExist:
+        if Streak.objects.all().count() == 0:
+            return Http404()
+
+        # Create a default one
+        streak = Streak(user=request.user, date_started=date_today)
+        streak.save()
+
+    # Streak State
     if streak.date_updated:
         # How many days since Last Increase
         days_since_last_update = (date_today - streak.date_updated).days
