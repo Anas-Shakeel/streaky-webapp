@@ -10,6 +10,7 @@ class Streak(models.Model):
     description = models.TextField()
     count = models.IntegerField(default=0)
     date_added = models.DateTimeField(default=timezone.now)
+    date_updated = models.DateTimeField(blank=True, null=True)
     date_ended = models.DateTimeField(blank=True, null=True)
     has_ended = models.BooleanField(default=False)
     already_increased = models.BooleanField(default=False)
