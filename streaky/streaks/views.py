@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.utils import timezone
 from .models import Streak
 
 
@@ -7,10 +9,10 @@ def home(request):
     if not request.user.is_authenticated:
         return redirect("users:login")
 
-    # Get Latest Streak
+    # Get Streak
     streak = get_object_or_404(Streak, user=request.user)
 
-    # Decide color
+    # Streak color
     if streak.count <= 50:
         streak_color = "#40AFFF"
     elif streak.count <= 100:
@@ -28,6 +30,29 @@ def home(request):
             "streak_color": streak_color,
         },
     )
+
+
+def increase_streak(request):
+    if not request.user.is_authenticated:
+        return redirect("users:login")
+
+    if request.method == "POST":
+        streak = get_object_or_404(Streak, user=request.user)
+
+        # Increase if not already.
+        if not streak.already_increased:
+            streak.count += 1
+            streak.date_updated = timezone.localtime(timezone.now()).date()
+            streak.already_increased = True
+            streak.save()
+
+            # Send status 200 as json response
+            return JsonResponse({"count": streak.count})
+
+        return JsonResponse({"count": streak.count})
+
+    # For GET requests
+    return redirect("streaks:home")
 
 
 def edit_streak(request):
