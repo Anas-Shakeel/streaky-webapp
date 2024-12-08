@@ -4,7 +4,7 @@ from .models import Streak
 
 # Register your models here.
 class StreakAdmin(admin.ModelAdmin):
-    list_display = ("user", "title", "count", "date_added", "date_ended", "has_ended")
+    list_display = ("user", "title", "count", "date_added", "date_ended")
 
 
 admin.site.register(Streak, StreakAdmin)
