@@ -108,3 +108,7 @@ def edit_streak(request):
         "streaks/edit.html",
         context={"streak": streak},
     )
+
+
+def account(request):
+    return render(request, "streaks/account.html")
