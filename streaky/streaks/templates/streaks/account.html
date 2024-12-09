@@ -66,7 +66,7 @@
             <fieldset class="account-fieldset">
                 <legend>Danger Zone</legend>
                 <p class="fieldset-text">This will delete your account and your streak as well.</p>
-                <form action="{% url 'streaks:account' %}" method="post" class="account-input-container">
+                <form action="{% url 'users:delete_account' %}" method="post" class="account-input-container">
                     {% csrf_token %}
                     <input
                         type="password"
