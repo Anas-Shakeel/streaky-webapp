@@ -99,9 +99,7 @@ def logout_user(request):
 # TODO: Add account views (change username, password etc...)
 
 
-# Change username
 def change_username(request):
-    # change username
     if request.method == "POST":
         username = request.POST["username"]
         message = ""
@@ -130,6 +128,50 @@ def change_username(request):
             return redirect("streaks:account")
 
         # something went wrong! redirect to account page and pass the message
+        return render(request, "streaks/account.html", {"message": message})
+
+    return redirect("streaks:account")
+
+
+def change_password(request):
+    if request.method == "POST":
+        # Get the fields
+        old_pass = request.POST.get("old_password", "")
+        new_pass = request.POST.get("new_password", "")
+        confirm_pass = request.POST.get("confirm_password", "")
+
+        # Get the current user
+        current_user = User.objects.get(username=request.user.username)
+
+        # Validate the fields
+        message = ""
+        if not old_pass:
+            message = "Old password field must not be empty"
+        elif not new_pass:
+            message = "New password field must not be empty"
+        elif not confirm_pass:
+            message = "Confirm password field must not be empty"
+        elif new_pass != confirm_pass:
+            message = "New password does not match confirm password"
+        elif new_pass == old_pass:
+            message = "New password must not be same as old password"
+        elif len(new_pass) > 30:
+            message = "Password can only contain 30 characters at most"
+        elif len(new_pass) < 4:
+            message = "Password must contain atleast 4 characters"
+        elif not check_password(old_pass, current_user.password):
+            message = "Incorrect old password, try again!"
+        else:
+            # All well, proceed
+            current_user.password = make_password(new_pass)
+            current_user.save()
+
+            # Login the user
+            login(request, current_user)
+
+            return redirect("streaks:account")
+
+        # something went wrong, re-render with error
         return render(request, "streaks/account.html", {"message": message})
 
     return redirect("streaks:account")
