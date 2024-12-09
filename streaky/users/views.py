@@ -94,3 +94,42 @@ def logout_user(request):
         logout(request)
 
     return redirect("users:login")
+
+
+# TODO: Add account views (change username, password etc...)
+
+
+# Change username
+def change_username(request):
+    # change username
+    if request.method == "POST":
+        username = request.POST["username"]
+        message = ""
+
+        # Validate the username
+        if not username:
+            message = "Invalid username! try again."
+        elif User.objects.filter(username=username).first():
+            message = "Username already exists! try another."
+        elif len(username) > 30:
+            message = "Username can only contain 30 characters at most!"
+        elif len(username) < 4:
+            message = "Username must contain atleast 4 characters!"
+        else:
+            # Finally check for illegal characters
+            for char in ILLEGAL_CHARS:
+                if char in username:
+                    message = f"Illegal character {char} in username. Avoid these {ILLEGAL_CHARS} characters."
+                    return render(request, "streaks/account.html", {"message": message})
+
+            # Everything is ok at this point. change the username now!
+            user = User.objects.get(username=request.user.username)
+            user.username = username
+            user.save()
+
+            return redirect("streaks:account")
+
+        # something went wrong! redirect to account page and pass the message
+        return render(request, "streaks/account.html", {"message": message})
+
+    return redirect("streaks:account")
