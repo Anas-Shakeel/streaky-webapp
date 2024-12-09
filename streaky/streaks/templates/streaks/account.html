@@ -1,0 +1,85 @@
+{% extends "layout.html" %} {% load static %}
+
+<!--Title-->
+{% block title %} account {% endblock %}
+
+<!--Body Content-->
+{% block content %}
+
+<div class="account-main-container">
+    <div class="account-container">
+        <h1 class="account-heading">Account Settings</h1>
+
+        <!-- Messagebox -->
+        <div class="fieldset-msg-container">
+            {% if message %}
+            <p class="msg msg-error">{{message}}</p>
+            {% endif %}
+        </div>
+
+        <div class="fieldset-container custom-scrollbar">
+            <!-- Form Fields -->
+            <fieldset class="account-fieldset">
+                <legend>Change username</legend>
+
+                <form action="{% url 'streaks:account' %}" method="post" class="account-input-container">
+                    {% csrf_token %}
+                    <input
+                        type="text"
+                        name="username"
+                        class="account-input"
+                        placeholder="Change Username"
+                        value="{{user.username}}"
+                        maxlength="99"
+                        required />
+                    <input type="submit" value="Change" class="account-fieldset-btn field-button" />
+                </form>
+            </fieldset>
+            <fieldset class="account-fieldset">
+                <legend>Change password</legend>
+                <form action="{% url 'streaks:account' %}" method="post" class="account-input-container">
+                    {% csrf_token %}
+                    <input
+                        type="password"
+                        name="old_password"
+                        class="account-input"
+                        placeholder="Old Password"
+                        required
+                        autocomplete="off" />
+                    <input
+                        type="password"
+                        name="new_password"
+                        class="account-input"
+                        placeholder="New Password"
+                        required
+                        autocomplete="off" />
+                    <input
+                        type="password"
+                        name="confirm_password"
+                        class="account-input"
+                        placeholder="Confirm New Password"
+                        required
+                        autocomplete="off" />
+                    <input type="submit" value="Change" class="account-fieldset-btn field-button" />
+                </form>
+            </fieldset>
+            <fieldset class="account-fieldset">
+                <legend>Danger Zone</legend>
+                <p class="fieldset-text">This will delete your account and your streak as well.</p>
+                <form action="{% url 'streaks:account' %}" method="post" class="account-input-container">
+                    {% csrf_token %}
+                    <input
+                        type="password"
+                        name="password"
+                        class="account-input"
+                        placeholder="Password"
+                        required
+                        autocomplete="off" />
+                    <input type="submit" value="Delete Account" class="field-button account-fieldset-btn danger-btn" />
+                </form>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
