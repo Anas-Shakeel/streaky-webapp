@@ -37,7 +37,7 @@
             </fieldset>
             <fieldset class="account-fieldset">
                 <legend>Change password</legend>
-                <form action="{% url 'streaks:account' %}" method="post" class="account-input-container">
+                <form action="{% url 'users:change_password' %}" method="post" class="account-input-container">
                     {% csrf_token %}
                     <input
                         type="password"
