@@ -96,9 +96,6 @@ def logout_user(request):
     return redirect("users:login")
 
 
-# TODO: Add account views (change username, password etc...)
-
-
 def change_username(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -175,3 +172,29 @@ def change_password(request):
         return render(request, "streaks/account.html", {"message": message})
 
     return redirect("streaks:account")
+
+
+def delete_account(request):
+    # request POST and User logged in?
+    if request.method == "POST" and request.user.is_authenticated:
+        # Get the password
+        password = request.POST.get("password", "")
+
+        # Get user account
+        user = User.objects.get(username=request.user.username)
+
+        message = ""
+
+        # Don't delete admin account
+        if user.is_superuser:
+            message = "Cannot delete admin account from here"
+        elif not check_password(password, user.password):
+            message = "Incorrect Password, please (don't) try again"
+        else:
+            # Delete the account at this point
+            user.delete()
+            return redirect("streaks:home")
+
+        return render(request, "streaks/account.html", {"message": message})
+
+    return redirect("streaks:home")
