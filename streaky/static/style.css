@@ -544,3 +544,7 @@ body {
     background-color: rgba(252, 46, 46, 50%);
     border-color: rgba(183, 28, 28, 50%);
 }
+
+.reset-link:hover {
+    color: var(--accent-color);
+}

@@ -26,6 +26,7 @@
             <p id="streakCount" class="streak-count" style="color: {{streak_color}};">Day {{streak.count}}</p>
         </button>
     </div>
+    <a href="{% url 'streaks:reset' %}" class="reset-link">Reset</a>
 </main>
 
 {% csrf_token %}
