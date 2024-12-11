@@ -110,5 +110,13 @@ def edit_streak(request):
     )
 
 
+def reset_streak(request):
+    if request.user.is_authenticated:
+        streak = get_object_or_404(Streak, user=request.user)
+        streak.reset()
+
+    return redirect("streaks:home")
+
+
 def account(request):
     return render(request, "streaks/account.html")
