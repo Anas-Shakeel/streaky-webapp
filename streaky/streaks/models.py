@@ -16,7 +16,7 @@ class Streak(models.Model):
     def break_streak(self):
         """Breaks the current streak"""
         self.already_increased = False
-        self.date_started = timezone.localtime(timezone.now())
+        self.date_started = timezone.localtime(timezone.now()).date()
         self.date_updated = None
         self.count = 0
         self.save()
@@ -26,7 +26,7 @@ class Streak(models.Model):
         self.title = "Streak title..."
         self.description = "Streak short description..."
         self.count = 0
-        self.date_started = None
+        self.date_started = timezone.localtime(timezone.now()).date()
         self.date_updated = None
         self.already_increased = False
         self.save()
