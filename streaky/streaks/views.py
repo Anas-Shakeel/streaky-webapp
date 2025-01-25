@@ -15,9 +15,6 @@ def home(request):
     try:
         streak = Streak.objects.get(user=request.user)
     except Streak.DoesNotExist:
-        if Streak.objects.all().count() == 0:
-            return Http404()
-
         # Create a default one
         streak = Streak(user=request.user, date_started=date_today)
         streak.save()
